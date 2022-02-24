@@ -2,17 +2,18 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using LoveClient.API.Data;
 using LoveClient.API.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
 namespace LoveClient.API.Controllers
 {
-   [ApiController]
-   [Route("api/[controller]")]
-   public class EventoController : ControllerBase
-   {
-      public IEnumerable<Evento> _evento = new Evento[]{
+    [ApiController]
+    [Route("api/[controller]")]
+    public class EventoController : ControllerBase
+    {
+        public IEnumerable<Evento> _evento = new Evento[]{
          new Evento(){
             EventoId = 1,
             Titulo = "Angular 11 e .NET 5",
@@ -31,22 +32,24 @@ namespace LoveClient.API.Controllers
             DataEvento = DateTime.Now.AddDays(2).ToString("dd/MM/yyyy"),
             ImagemURL = "foto1.png"
          }
-      }; 
-        public EventoController()
+      };
+        private readonly DataContext _context;
+        public EventoController(DataContext context)
         {
+            _context = context;
 
         }
 
         [HttpGet]
         public IEnumerable<Evento> Get()
         {
-            return _evento;
+            return _context.Eventos;
         }
 
-      [HttpGet("{id}")]
-        public IEnumerable<Evento> GetById(int id)
+        [HttpGet("{id}")]
+        public Evento GetById(int id)
         {
-            return _evento.Where(evento=> evento.EventoId == id);
+            return _context.Eventos.FirstOrDefault(evento => evento.EventoId == id);
         }
 
         [HttpPost]
