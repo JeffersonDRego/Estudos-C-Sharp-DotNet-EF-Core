@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\LoveClient.Domain\LoveClient.Domain.csproj" />
+    <ProjectReference Include="..\LoveClient.Persistence\LoveClient.Persistence.csproj" />
+  </ItemGroup>
+  
+</Project>
